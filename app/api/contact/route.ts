@@ -1,27 +1,28 @@
 import { Resend } from 'resend';
 import { NextResponse } from 'next/server';
 
-// Initialize Resend only when API key is available
-const resend = process.env.RESEND_API_KEY 
-  ? new Resend(process.env.RESEND_API_KEY)
-  : null;
-
 export async function POST(request: Request) {
   try {
-    // Check if Resend is initialized
-    if (!resend) {
-      console.error('Resend API key not configured');
+    // Debug logging
+    console.log('API Key exists:', !!process.env.RESEND_API_KEY);
+    
+    // Initialize Resend with the API key
+    if (!process.env.RESEND_API_KEY) {
+      console.error('RESEND_API_KEY environment variable is missing');
       return NextResponse.json(
         { error: 'Email service not configured' },
         { status: 500 }
       );
     }
 
+    const resend = new Resend(process.env.RESEND_API_KEY);
     const data = await request.json();
+    
+    console.log('Attempting to send email to info@quartz.solutions');
     
     const result = await resend.emails.send({
       from: 'Quartz Solutions <onboarding@resend.dev>',
-      to: 'info@quartz.solutions',
+      to: ['info@quartz.solutions'],
       subject: `FEAM Assessment Request from ${data.name}`,
       html: `
         <h2>New Contact Form Submission</h2>
@@ -36,9 +37,10 @@ export async function POST(request: Request) {
       `
     });
 
+    console.log('Email sent successfully:', result);
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Email error:', error);
-    return NextResponse.json({ error: 'Failed to send' }, { status: 500 });
+    console.error('Email error details:', error);
+    return NextResponse.json({ error: 'Failed to send email' }, { status: 500 });
   }
 }

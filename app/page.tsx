@@ -1104,7 +1104,7 @@ export default function QuartzSolutions() {
                           required
                           value={formData.organization}
                           onChange={(e) => setFormData({...formData, organization: e.target.value})}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3752E0] focus:border-transparent placeholder:text-gray-500"
+                          className="w-full px-4 py-2 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3752E0] focus:border-[#3752E0] placeholder:text-gray-600"
                           placeholder="Your organization name"
                         />
                       </div>
@@ -1118,7 +1118,7 @@ export default function QuartzSolutions() {
                           required
                           value={formData.name}
                           onChange={(e) => setFormData({...formData, name: e.target.value})}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3752E0] focus:border-transparent placeholder:text-gray-500"
+                          className="w-full px-4 py-2 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3752E0] focus:border-[#3752E0] placeholder:text-gray-600"
                           placeholder="John Smith"
                         />
                       </div>
@@ -1134,7 +1134,7 @@ export default function QuartzSolutions() {
                           required
                           value={formData.email}
                           onChange={(e) => setFormData({...formData, email: e.target.value})}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3752E0] focus:border-transparent"
+                          className="w-full px-4 py-2 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3752E0] focus:border-[#3752E0]"
                         />
                       </div>
 
@@ -1147,7 +1147,7 @@ export default function QuartzSolutions() {
                           required
                           value={formData.role}
                           onChange={(e) => setFormData({...formData, role: e.target.value})}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3752E0] focus:border-transparent"
+                          className="w-full px-4 py-2 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3752E0] focus:border-[#3752E0]"
                         />
                       </div>
                     </div>
@@ -1161,7 +1161,7 @@ export default function QuartzSolutions() {
                           required
                           value={formData.facilitySize}
                           onChange={(e) => setFormData({...formData, facilitySize: e.target.value})}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3752E0] focus:border-transparent"
+                          className="w-full px-4 py-2 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3752E0] focus:border-[#3752E0]"
                         >
                           <option value="">Select size</option>
                           <option value="under-10">Under 10 buildings</option>
@@ -1179,7 +1179,7 @@ export default function QuartzSolutions() {
                           required
                           value={formData.primaryInterest}
                           onChange={(e) => setFormData({...formData, primaryInterest: e.target.value})}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3752E0] focus:border-transparent"
+                          className="w-full px-4 py-2 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3752E0] focus:border-[#3752E0]"
                         >
                           <option value="">Select interest</option>
                           <option value="feam-existing">FEAM - Existing Portfolio</option>
@@ -1197,7 +1197,7 @@ export default function QuartzSolutions() {
                       <select
                         value={formData.referralSource}
                         onChange={(e) => setFormData({...formData, referralSource: e.target.value})}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3752E0] focus:border-transparent"
+                        className="w-full px-4 py-2 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3752E0] focus:border-[#3752E0]"
                       >
                         <option value="">Select source</option>
                         <option value="web-search">Web Search</option>
@@ -1216,7 +1216,7 @@ export default function QuartzSolutions() {
                         rows={4}
                         value={formData.message}
                         onChange={(e) => setFormData({...formData, message: e.target.value})}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3752E0] focus:border-transparent"
+                        className="w-full px-4 py-2 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3752E0] focus:border-[#3752E0]"
                         placeholder="Tell us about your specific challenges or timeline..."
                       />
                     </div>

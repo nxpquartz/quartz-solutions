@@ -3,12 +3,7 @@ import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
   try {
-    // Debug logging
-    console.log('API Key exists:', !!process.env.RESEND_API_KEY);
-    
-    // Initialize Resend with the API key
     if (!process.env.RESEND_API_KEY) {
-      console.error('RESEND_API_KEY environment variable is missing');
       return NextResponse.json(
         { error: 'Email service not configured' },
         { status: 500 }
@@ -18,10 +13,8 @@ export async function POST(request: Request) {
     const resend = new Resend(process.env.RESEND_API_KEY);
     const data = await request.json();
     
-    console.log('Attempting to send email to info@quartz.solutions');
-    
     const result = await resend.emails.send({
-      from: 'Quartz Solutions <onboarding@resend.dev>',
+      from: 'Quartz Solutions <info@quartz.solutions>',  // Changed to your domain
       to: ['info@quartz.solutions'],
       subject: `FEAM Assessment Request from ${data.name}`,
       html: `
@@ -37,10 +30,9 @@ export async function POST(request: Request) {
       `
     });
 
-    console.log('Email sent successfully:', result);
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Email error details:', error);
+    console.error('Email error:', error);
     return NextResponse.json({ error: 'Failed to send email' }, { status: 500 });
   }
 }

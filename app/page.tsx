@@ -54,37 +54,41 @@ export default function QuartzSolutions() {
   }, []);
 
   const handleFormSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setFormSubmitting(true);
+  e.preventDefault();
+  setFormSubmitting(true);
+  
+  try {
+    const response = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    });
     
-    // Simulate form submission (replace with actual API call)
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    // Send to CRM/Email (you'll implement this with your backend)
-    console.log('Form submitted:', formData);
-    
-    // Send auto-response email
-    // This would be handled by your backend
-    
+    if (response.ok) {
+      setFormSubmitted(true);
+      setTimeout(() => {
+        setShowContactModal(false);
+        setFormSubmitted(false);
+        setFormData({
+          organization: '',
+          name: '',
+          email: '',
+          role: '',
+          facilitySize: '',
+          primaryInterest: '',
+          referralSource: '',
+          message: ''
+        });
+      }, 3000);
+    } else {
+      alert('Failed to send message. Please try again.');
+    }
+  } catch (error) {
+    alert('Error sending message. Please try again.');
+  } finally {
     setFormSubmitting(false);
-    setFormSubmitted(true);
-    
-    // Reset after showing success
-    setTimeout(() => {
-      setShowContactModal(false);
-      setFormSubmitted(false);
-      setFormData({
-        organization: '',
-        name: '',
-        email: '',
-        role: '',
-        facilitySize: '',
-        primaryInterest: '',
-        referralSource: '',
-        message: ''
-      });
-    }, 3000);
-  };
+  }
+};
 
   // FEAM Process Steps with enhanced colors
   const feamSteps = [

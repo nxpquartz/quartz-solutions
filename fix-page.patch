@@ -1,0 +1,33 @@
+--- a/app/page.tsx
++++ b/app/page.tsx
+@@ -137,9 +137,9 @@
+   ];
+ 
+   return (
+-<Head>
+-  <title>Quartz Consulting Group - FEAM Services</title>
+-</Head>
++    <>
++      <Head>
++        <title>Quartz Consulting Group - FEAM Services</title>
++      </Head>
+     <div className="min-h-screen bg-white">
+@@ -86,6 +86,9 @@
+           role: '',
+           facilitySize: '',
+           primaryInterest: '',
++          timeline: '',
++          currentSystems: '',
++          painPoints: [],
+           referralSource: '',
+           message: ''
+         });
+@@ -365,7 +365,7 @@
+-              className="mt-12 grid grid-cols-3 gap-8 max-w-2xl"
++              className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl"
+@@ -1514,2 +1514,0 @@
+-                      >
+-                        Cancel
++    </>
+   );
+ }

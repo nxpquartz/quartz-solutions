@@ -1,4 +1,4 @@
-// app/page.tsx - Quartz Solutions FEAM-focused landing page (UPDATED)
+// app/page.tsx - Quartz Solutions FEAM-focused landing page
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -17,12 +17,18 @@ import {
 } from 'lucide-react';
 
 interface ContactFormData {
+  // Required fields
   organization: string;
   name: string;
   email: string;
   role: string;
   facilitySize: string;
   primaryInterest: string;
+  
+  // Optional fields
+  timeline: string;
+  currentSystems: string;
+  painPoints: string[];
   referralSource: string;
   message: string;
 }
@@ -39,6 +45,9 @@ export default function QuartzSolutions() {
     role: '',
     facilitySize: '',
     primaryInterest: '',
+    timeline: '',
+    currentSystems: '',
+    painPoints: [],
     referralSource: '',
     message: ''
   });
@@ -54,41 +63,44 @@ export default function QuartzSolutions() {
   }, []);
 
   const handleFormSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setFormSubmitting(true);
-  
-  try {
-    const response = await fetch('/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
-    });
+    e.preventDefault();
+    setFormSubmitting(true);
     
-    if (response.ok) {
-      setFormSubmitted(true);
-      setTimeout(() => {
-        setShowContactModal(false);
-        setFormSubmitted(false);
-        setFormData({
-          organization: '',
-          name: '',
-          email: '',
-          role: '',
-          facilitySize: '',
-          primaryInterest: '',
-          referralSource: '',
-          message: ''
-        });
-      }, 3000);
-    } else {
-      alert('Failed to send message. Please try again.');
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      
+      if (response.ok) {
+        setFormSubmitted(true);
+        setTimeout(() => {
+          setShowContactModal(false);
+          setFormSubmitted(false);
+          setFormData({
+            organization: '',
+            name: '',
+            email: '',
+            role: '',
+            facilitySize: '',
+            primaryInterest: '',
+            timeline: '',
+            currentSystems: '',
+            painPoints: [],
+            referralSource: '',
+            message: ''
+          });
+        }, 3000);
+      } else {
+        alert('Failed to send message. Please try again.');
+      }
+    } catch (error) {
+      alert('Error sending message. Please try again.');
+    } finally {
+      setFormSubmitting(false);
     }
-  } catch (error) {
-    alert('Error sending message. Please try again.');
-  } finally {
-    setFormSubmitting(false);
-  }
-};
+  };
 
   // FEAM Process Steps with enhanced colors
   const feamSteps = [
@@ -124,16 +136,16 @@ export default function QuartzSolutions() {
     }
   ];
 
-  // Team in action photos - matched to actual file extensions in public folder
+  // Team in action photos - using optimized versions
   const teamPhotos = [
-    { src: '/IMG_0166.JPG', caption: 'Asset Verification in Mechanical Rooms' },
-    { src: '/IMG_0169.jpeg', caption: 'MEP Equipment Documentation' },
-    { src: '/IMG_0213.jpeg', caption: 'Rooftop Equipment Survey' },
-    { src: '/IMG_0238.jpeg', caption: 'Critical Asset Identification' },
-    { src: '/IMG_1735.PNG', caption: 'Field Data Collection' },
-    { src: '/IMG_1831.JPG', caption: 'Asset Tagging Process' },
-    { src: '/IMG_5689.png', caption: 'Equipment Condition Assessment' },
-    { src: '/IMG_9603.jpeg', caption: 'Digital Documentation Capture' }
+    { src: '/optimized_IMG_0166.jpg', caption: 'Asset Verification in Mechanical Rooms' },
+    { src: '/optimized_IMG_0169.jpg', caption: 'MEP Equipment Documentation' },
+    { src: '/optimized_IMG_0213.jpg', caption: 'Rooftop Equipment Survey' },
+    { src: '/optimized_IMG_0238.jpg', caption: 'Critical Asset Identification' },
+    { src: '/optimized_IMG_1735.jpg', caption: 'Field Data Collection' },
+    { src: '/optimized_IMG_1831.jpg', caption: 'Asset Tagging Process' },
+    { src: '/optimized_IMG_5689.jpg', caption: 'Equipment Condition Assessment' },
+    { src: '/optimized_IMG_9603.jpg', caption: 'Digital Documentation Capture' }
   ];
 
   return (
@@ -146,11 +158,11 @@ export default function QuartzSolutions() {
       } border-b border-gray-200`}>
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <a href="/">
+            <a href="/" className="block">
               <img 
                 src="/Quartz-Logo-Design-10.png"
                 alt="Quartz Consulting Group"
-                style={{ height: '36px', width: 'auto' }}
+                className="h-7 md:h-8 w-auto"
               />
             </a>
             
@@ -274,7 +286,7 @@ export default function QuartzSolutions() {
               transition={{ duration: 1, delay: 0.8 }}
               className="text-sm text-white/80 mb-8 italic"
             >
-              Proven methodology deployed across the nation's largest community college district
+              Proven methodology deployed across 770+ buildings in enterprise education portfolios
             </motion.p>
             
             <motion.div 
@@ -306,7 +318,7 @@ export default function QuartzSolutions() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 1.1 }}
-              className="mt-12 grid grid-cols-3 gap-8 max-w-2xl"
+              className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl"
             >
               <motion.div 
                 initial={{ opacity: 0, scale: 0.5 }}
@@ -366,6 +378,26 @@ export default function QuartzSolutions() {
                   className="text-3xl font-bold text-yellow-300"
                 >100%</motion.div>
                 <div className="text-sm text-white/80">Asset Verification</div>
+              </motion.div>
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 1.5 }}
+                className="text-center"
+              >
+                <motion.div 
+                  animate={{ 
+                    scale: [1, 1.1, 1],
+                  }}
+                  transition={{ 
+                    duration: 2,
+                    delay: 1.5,
+                    repeat: Infinity,
+                    repeatType: "reverse"
+                  }}
+                  className="text-3xl font-bold text-yellow-300"
+                >770+</motion.div>
+                <div className="text-sm text-white/80">Buildings Assessed</div>
               </motion.div>
             </motion.div>
           </motion.div>
@@ -1042,13 +1074,13 @@ export default function QuartzSolutions() {
 
           <div className="border-t border-gray-200 mt-12 pt-8 text-center">
             <p className="text-gray-600">
-              © 2025 Network Transformation Partners, Inc. • Professional Services Division
+              © 2025 Quartz Consulting Group • A Division of Network Transformation Partners, Inc.
             </p>
           </div>
         </div>
       </footer>
 
-      {/* Contact Modal - Same as before */}
+      {/* Contact Modal - Complete and Fixed */}
       <AnimatePresence>
         {showContactModal && (
           <motion.div
@@ -1094,134 +1126,216 @@ export default function QuartzSolutions() {
                   </div>
 
                   <form onSubmit={handleFormSubmit} className="p-8 space-y-6">
-                    <div className="grid md:grid-cols-2 gap-6">
+                    {/* Required Fields Section */}
+                    <div className="pb-4 border-b border-gray-200">
+                      <h4 className="text-sm font-semibold text-gray-900 mb-4">Required Information</h4>
+                      
+                      <div className="grid md:grid-cols-2 gap-6">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Organization *
+                          </label>
+                          <input
+                            type="text"
+                            required
+                            value={formData.organization}
+                            onChange={(e) => setFormData({...formData, organization: e.target.value})}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3752E0] focus:border-transparent"
+                            placeholder="Your organization name"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Your Name *
+                          </label>
+                          <input
+                            type="text"
+                            required
+                            value={formData.name}
+                            onChange={(e) => setFormData({...formData, name: e.target.value})}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3752E0] focus:border-transparent"
+                            placeholder="John Smith"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Email *
+                          </label>
+                          <input
+                            type="email"
+                            required
+                            value={formData.email}
+                            onChange={(e) => setFormData({...formData, email: e.target.value})}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3752E0] focus:border-transparent"
+                            placeholder="john@example.com"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Your Role *
+                          </label>
+                          <input
+                            type="text"
+                            required
+                            value={formData.role}
+                            onChange={(e) => setFormData({...formData, role: e.target.value})}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3752E0] focus:border-transparent"
+                            placeholder="Director of Facilities"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Facility Portfolio Size *
+                          </label>
+                          <select
+                            required
+                            value={formData.facilitySize}
+                            onChange={(e) => setFormData({...formData, facilitySize: e.target.value})}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3752E0] focus:border-transparent"
+                          >
+                            <option value="">Select size</option>
+                            <option value="under-10">Under 10 buildings</option>
+                            <option value="10-50">10-50 buildings</option>
+                            <option value="50-100">50-100 buildings</option>
+                            <option value="100+">100+ buildings</option>
+                          </select>
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Primary Interest *
+                          </label>
+                          <select
+                            required
+                            value={formData.primaryInterest}
+                            onChange={(e) => setFormData({...formData, primaryInterest: e.target.value})}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3752E0] focus:border-transparent"
+                          >
+                            <option value="">Select interest</option>
+                            <option value="feam-existing">FEAM for Existing Buildings</option>
+                            <option value="construction-handover">New Construction Handover</option>
+                            <option value="asset-verification">Asset Verification & Tagging</option>
+                            <option value="post-feam-support">Post-FEAM Support & Training</option>
+                            <option value="sop-development">SOP & Procedure Development</option>
+                            <option value="consultation">Facilities Consulting</option>
+                            <option value="other">Other Services</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Optional Fields Section */}
+                    <div className="space-y-6">
+                      <h4 className="text-sm font-semibold text-gray-900">Optional Information</h4>
+                      <p className="text-xs text-gray-500 -mt-2">Help us better understand your needs</p>
+
+                      <div className="grid md:grid-cols-2 gap-6">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Timeline
+                          </label>
+                          <select
+                            value={formData.timeline}
+                            onChange={(e) => setFormData({...formData, timeline: e.target.value})}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3752E0] focus:border-transparent"
+                          >
+                            <option value="">Select timeline</option>
+                            <option value="immediate">Immediate need</option>
+                            <option value="30-days">Within 30 days</option>
+                            <option value="1-3-months">1-3 months</option>
+                            <option value="3-6-months">3-6 months</option>
+                            <option value="next-fiscal">Next fiscal year</option>
+                            <option value="exploring">Just exploring options</option>
+                          </select>
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            How did you hear about us?
+                          </label>
+                          <select
+                            value={formData.referralSource}
+                            onChange={(e) => setFormData({...formData, referralSource: e.target.value})}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3752E0] focus:border-transparent"
+                          >
+                            <option value="">Select source</option>
+                            <option value="web-search">Web Search</option>
+                            <option value="referral">Referral</option>
+                            <option value="industry-event">Industry Event</option>
+                            <option value="direct-outreach">Direct Outreach</option>
+                            <option value="other">Other</option>
+                          </select>
+                        </div>
+                      </div>
+
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Organization *
+                          Current Facilities Management Systems
+                          <span className="text-xs text-gray-500 ml-2">(if comfortable sharing)</span>
                         </label>
                         <input
                           type="text"
-                          required
-                          value={formData.organization}
-                          onChange={(e) => setFormData({...formData, organization: e.target.value})}
-                          className="w-full px-4 py-2 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3752E0] focus:border-[#3752E0] placeholder:text-gray-600"
-                          placeholder="Your organization name"
+                          value={formData.currentSystems}
+                          onChange={(e) => setFormData({...formData, currentSystems: e.target.value})}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3752E0] focus:border-transparent"
+                          placeholder="e.g., Maximo, AiM, Archibus, Excel, etc."
                         />
                       </div>
 
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Your Name *
+                        <label className="block text-sm font-medium text-gray-700 mb-3">
+                          Current Challenges
+                          <span className="text-xs text-gray-500 ml-2">(check all that apply)</span>
                         </label>
-                        <input
-                          type="text"
-                          required
-                          value={formData.name}
-                          onChange={(e) => setFormData({...formData, name: e.target.value})}
-                          className="w-full px-4 py-2 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3752E0] focus:border-[#3752E0] placeholder:text-gray-600"
-                          placeholder="John Smith"
+                        <div className="grid md:grid-cols-2 gap-3">
+                          {[
+                            'Incomplete asset inventory',
+                            'Manual tracking processes',
+                            'Compliance reporting challenges',
+                            'Deferred maintenance backlog',
+                            'Budget planning difficulties',
+                            'Space utilization visibility',
+                            'Multi-campus coordination',
+                            'Aging infrastructure concerns'
+                          ].map((painPoint) => (
+                            <label key={painPoint} className="flex items-center space-x-2 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                              <input
+                                type="checkbox"
+                                checked={formData.painPoints.includes(painPoint)}
+                                onChange={(e) => {
+                                  if (e.target.checked) {
+                                    setFormData({...formData, painPoints: [...formData.painPoints, painPoint]});
+                                  } else {
+                                    setFormData({...formData, painPoints: formData.painPoints.filter(p => p !== painPoint)});
+                                  }
+                                }}
+                                className="h-4 w-4 text-[#3752E0] rounded border-gray-300 focus:ring-[#3752E0]"
+                              />
+                              <span className="text-sm text-gray-700">{painPoint}</span>
+                            </label>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Additional Information
+                        </label>
+                        <textarea
+                          rows={3}
+                          value={formData.message}
+                          onChange={(e) => setFormData({...formData, message: e.target.value})}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3752E0] focus:border-transparent"
+                          placeholder="Any specific questions or details about your project..."
                         />
                       </div>
                     </div>
 
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Email *
-                        </label>
-                        <input
-                          type="email"
-                          required
-                          value={formData.email}
-                          onChange={(e) => setFormData({...formData, email: e.target.value})}
-                          className="w-full px-4 py-2 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3752E0] focus:border-[#3752E0]"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Your Role *
-                        </label>
-                        <input
-                          type="text"
-                          required
-                          value={formData.role}
-                          onChange={(e) => setFormData({...formData, role: e.target.value})}
-                          className="w-full px-4 py-2 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3752E0] focus:border-[#3752E0]"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Facility Portfolio Size *
-                        </label>
-                        <select
-                          required
-                          value={formData.facilitySize}
-                          onChange={(e) => setFormData({...formData, facilitySize: e.target.value})}
-                          className="w-full px-4 py-2 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3752E0] focus:border-[#3752E0]"
-                        >
-                          <option value="">Select size</option>
-                          <option value="under-10">Under 10 buildings</option>
-                          <option value="10-50">10-50 buildings</option>
-                          <option value="50-100">50-100 buildings</option>
-                          <option value="100+">100+ buildings</option>
-                        </select>
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Primary Interest *
-                        </label>
-                        <select
-                          required
-                          value={formData.primaryInterest}
-                          onChange={(e) => setFormData({...formData, primaryInterest: e.target.value})}
-                          className="w-full px-4 py-2 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3752E0] focus:border-[#3752E0]"
-                        >
-                          <option value="">Select interest</option>
-                          <option value="feam-existing">FEAM - Existing Portfolio</option>
-                          <option value="construction-handover">New Construction Handover</option>
-                          <option value="post-feam">Post-FEAM Support</option>
-                          <option value="general">General Inquiry</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        How did you hear about us?
-                      </label>
-                      <select
-                        value={formData.referralSource}
-                        onChange={(e) => setFormData({...formData, referralSource: e.target.value})}
-                        className="w-full px-4 py-2 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3752E0] focus:border-[#3752E0]"
-                      >
-                        <option value="">Select source</option>
-                        <option value="web-search">Web Search</option>
-                        <option value="referral">Referral</option>
-                        <option value="industry-event">Industry Event</option>
-                        <option value="direct-outreach">Direct Outreach</option>
-                        <option value="other">Other</option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Additional Information (Optional)
-                      </label>
-                      <textarea
-                        rows={4}
-                        value={formData.message}
-                        onChange={(e) => setFormData({...formData, message: e.target.value})}
-                        className="w-full px-4 py-2 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3752E0] focus:border-[#3752E0]"
-                        placeholder="Tell us about your specific challenges or timeline..."
-                      />
-                    </div>
-
-                    <div className="flex gap-4 pt-4">
+                    <div className="flex gap-4 pt-6 border-t border-gray-200">
                       <button
                         type="button"
                         onClick={() => setShowContactModal(false)}

@@ -240,17 +240,7 @@ export default function QuartzSolutions() {
             transition={{ duration: 1, ease: "easeOut" }}
             className="max-w-4xl"
           >
-            <motion.div 
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-4 py-2 rounded-full mb-6"
-            >
-              <Sparkles className="h-4 w-4 text-white animate-pulse" />
-              <span className="text-sm font-medium text-white">
-                FEAM: Facilities Equipment Asset Management
-              </span>
-            </motion.div>
+         
 
             <motion.h1 
               initial={{ opacity: 0, y: 20 }}
@@ -275,19 +265,12 @@ export default function QuartzSolutions() {
               transition={{ duration: 0.8, delay: 0.6 }}
               className="text-xl text-white mb-8 max-w-3xl font-light drop-shadow"
             >
-              Transform your facilities portfolio with FEAM methodology. 
-              Whether existing buildings or new construction handovers, we deliver 
-              field-verified asset intelligence that saves millions and drives strategic decisions.
+              Our FEAM (Facilities Equipment Asset Management) methodology delivers 
+  field-verified asset intelligence that saves millions and drives strategic 
+  decisions for existing buildings and new construction handovers.
             </motion.p>
             
-            <motion.p 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 0.8 }}
-              className="text-sm text-white/80 mb-8 italic"
-            >
-              Proven methodology deployed across 770+ buildings in enterprise education portfolios
-            </motion.p>
+           
             
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
@@ -326,17 +309,7 @@ export default function QuartzSolutions() {
                 transition={{ duration: 0.5, delay: 1.2 }}
                 className="text-center"
               >
-                <motion.div 
-                  animate={{ 
-                    scale: [1, 1.1, 1],
-                  }}
-                  transition={{ 
-                    duration: 2,
-                    repeat: Infinity,
-                    repeatType: "reverse"
-                  }}
-                  className="text-3xl font-bold text-yellow-300"
-                >3-6</motion.div>
+                <div className="text-3xl font-bold text-yellow-300">3-6</div>
                 <div className="text-sm text-white/80">Month Implementation</div>
               </motion.div>
               <motion.div 
@@ -345,18 +318,7 @@ export default function QuartzSolutions() {
                 transition={{ duration: 0.5, delay: 1.3 }}
                 className="text-center"
               >
-                <motion.div 
-                  animate={{ 
-                    scale: [1, 1.1, 1],
-                  }}
-                  transition={{ 
-                    duration: 2,
-                    delay: 0.5,
-                    repeat: Infinity,
-                    repeatType: "reverse"
-                  }}
-                  className="text-3xl font-bold text-yellow-300"
-                >60</motion.div>
+                <div className="text-3xl font-bold text-yellow-300">60</div>
                 <div className="text-sm text-white/80">Day Handover Window</div>
               </motion.div>
               <motion.div 
@@ -365,18 +327,7 @@ export default function QuartzSolutions() {
                 transition={{ duration: 0.5, delay: 1.4 }}
                 className="text-center"
               >
-                <motion.div 
-                  animate={{ 
-                    scale: [1, 1.1, 1],
-                  }}
-                  transition={{ 
-                    duration: 2,
-                    delay: 1,
-                    repeat: Infinity,
-                    repeatType: "reverse"
-                  }}
-                  className="text-3xl font-bold text-yellow-300"
-                >100%</motion.div>
+                <div className="text-3xl font-bold text-yellow-300">100%</div>
                 <div className="text-sm text-white/80">Asset Verification</div>
               </motion.div>
               <motion.div 
@@ -385,18 +336,7 @@ export default function QuartzSolutions() {
                 transition={{ duration: 0.5, delay: 1.5 }}
                 className="text-center"
               >
-                <motion.div 
-                  animate={{ 
-                    scale: [1, 1.1, 1],
-                  }}
-                  transition={{ 
-                    duration: 2,
-                    delay: 1.5,
-                    repeat: Infinity,
-                    repeatType: "reverse"
-                  }}
-                  className="text-3xl font-bold text-yellow-300"
-                >770+</motion.div>
+                <div className="text-3xl font-bold text-yellow-300">770+</div>
                 <div className="text-sm text-white/80">Buildings Assessed</div>
               </motion.div>
             </motion.div>

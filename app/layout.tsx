@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/Quartz-Logo-Design-10.png',
+        url: '/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'Quartz Consulting Group',
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Quartz Consulting Group - FEAM Services',
     description: 'Transform your facilities portfolio with field-verified asset intelligence',
-    images: ['/Quartz-Logo-Design-10.png'],
+    images: ['/og-image.jpg'],
   },
   robots: {
     index: true,

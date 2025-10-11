@@ -2,6 +2,7 @@
 'use client';
 import toast, { Toaster } from 'react-hot-toast';
 import HeroSection from './components/HeroSection';
+import { validateEmail } from './components/ContactFormValidator';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
@@ -16,6 +17,7 @@ import {
   Building, CheckSquare, FileSearch, Hash, QrCode,
   BookOpen, Settings, GraduationCap, HeadphonesIcon
 } from 'lucide-react';
+
 
 interface ContactFormData {
   // Required fields

@@ -1,8 +1,21 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import GoogleAnalytics from './components/GoogleAnalytics';
 
 const inter = Inter({ subsets: ['latin'] })
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <head>...</head>
+      <body>
+        {children}
+        <GoogleAnalytics />
+      </body>
+    </html>
+  );
+}
 
 export const metadata: Metadata = {
   title: 'Quartz Consulting Group - FEAM Services',

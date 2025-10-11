@@ -1,6 +1,6 @@
 // app/page.tsx - Quartz Solutions FEAM-focused landing page
 'use client';
-
+import toast, { Toaster } from 'react-hot-toast';
 import HeroSection from './components/HeroSection';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -77,43 +77,52 @@ export default function QuartzSolutions() {
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setFormSubmitting(true);
+
+// Validate email
+  if (!validateEmail(formData.email)) {
+    toast.error('Please enter a valid email address');
+    return;
+  }
+
+      setFormSubmitting(true);
+  
+  try {
+    const response = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    });
     
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-      
-      if (response.ok) {
-        setFormSubmitted(true);
-        setTimeout(() => {
-          setShowContactModal(false);
-          setFormSubmitted(false);
-          setFormData({
-            organization: '',
-            name: '',
-            email: '',
-            role: '',
-            facilitySize: '',
-            primaryInterest: '',
-            timeline: '',
-            currentSystems: '',
-            painPoints: [],
-            referralSource: '',
-            message: ''
-          });
-        }, 3000);
-      } else {
-        alert('Failed to send message. Please try again.');
-      }
-    } catch (error) {
-      alert('Error sending message. Please try again.');
-    } finally {
-      setFormSubmitting(false);
+    if (response.ok) {
+      toast.success('Thank you! We\'ll contact you within one business day.');
+      setFormSubmitted(true);
+      setTimeout(() => {
+        setShowContactModal(false);
+        setFormSubmitted(false);
+        // Reset form
+        setFormData({
+          organization: '',
+          name: '',
+          email: '',
+          role: '',
+          facilitySize: '',
+          primaryInterest: '',
+          timeline: '',
+          currentSystems: '',
+          painPoints: [],
+          referralSource: '',
+          message: ''
+        });
+      }, 2000);
+    } else {
+      toast.error('Something went wrong. Please try again or email us directly.');
     }
-  };
+  } catch (error) {
+    toast.error('Connection error. Please check your internet and try again.');
+  } finally {
+    setFormSubmitting(false);
+  }
+};
 
   // FEAM Process Steps with enhanced colors
   const feamSteps = [
@@ -163,6 +172,22 @@ export default function QuartzSolutions() {
 
   return (
     <div className="min-h-screen bg-white">
+<Toaster 
+      position="top-right"
+      toastOptions={{
+        duration: 4000,
+        style: {
+          background: '#363636',
+          color: '#fff',
+        },
+        success: {
+          iconTheme: {
+            primary: '#10b981',
+            secondary: '#fff',
+          },
+        },
+      }}
+    />
 
 {/* Navigation */}
 <header className={`sticky top-0 z-50 transition-all duration-300 ${
@@ -394,33 +419,33 @@ export default function QuartzSolutions() {
     </div>
 
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6">
-      {teamPhotos.map((photo, idx) => (
-        <motion.div
-          key={idx}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: idx * 0.05 }}
-          className="group relative overflow-hidden rounded-lg shadow-lg"
-        >
-          <div className="aspect-square relative bg-gray-100">
-            <Image
-              src={photo.src}
-              alt={photo.caption}
-              fill
-              className="object-cover transition-transform duration-300 group-hover:scale-110"
-              sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 25vw"
-              loading="lazy"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <div className="absolute bottom-0 left-0 right-0 p-2 md:p-4">
-                <p className="text-white text-xs md:text-sm font-medium">{photo.caption}</p>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-      ))}
-    </div>
+     {teamPhotos.map((photo, idx) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+  
+  return (
+    <motion.div key={idx} ...>
+      <div className="aspect-square relative bg-gray-100">
+        {/* Loading skeleton */}
+        {!imageLoaded && (
+          <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-gray-200 to-gray-300" />
+        )}
+        
+        <Image
+          src={photo.src}
+          alt={photo.caption}
+          fill
+          className={`object-cover transition-transform duration-300 group-hover:scale-110 ${
+            imageLoaded ? 'opacity-100' : 'opacity-0'
+          }`}
+          sizes="..."
+          loading="lazy"
+          onLoad={() => setImageLoaded(true)}
+        />
+        ...
+      </div>
+    </motion.div>
+  );
+})}
 
     {/* Enterprise Shield Section - with mobile optimization */}
     <div className="mt-8 md:mt-12 bg-gradient-to-r from-[#3752E0] to-[#887CE7] rounded-xl md:rounded-2xl p-6 md:p-8 text-white text-center">

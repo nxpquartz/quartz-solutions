@@ -169,15 +169,6 @@ export default function HeroSection() {
           </motion.div>
         </motion.div>
       </div>
-      
-      {/* Loading state for video */}
-      {!videoLoaded && (
-        <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
-          <div className="bg-black/20 backdrop-blur-sm rounded-full px-4 py-2">
-            <div className="animate-pulse text-white text-sm">Optimizing experience...</div>
-          </div>
-        </div>
-      )}
     </section>
   );
 }

@@ -163,79 +163,98 @@ export default function QuartzSolutions() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Navigation */}
-      <header className={`sticky top-0 z-50 transition-all duration-300 ${
-        scrolled 
-          ? 'bg-white/95 backdrop-blur-lg shadow-lg' 
-          : 'bg-white/80 backdrop-blur-md'
-      } border-b border-gray-200`}>
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <a href="/" className="block">
-              <img 
-                src="/Quartz-Logo-Design-10.png"
-                alt="Quartz Consulting Group"
-                className="h-7 md:h-8 w-auto"
-              />
-            </a>
-            
-            <nav className="hidden md:flex items-center space-x-8">
-              <a href="#feam-process" className="text-gray-700 hover:text-[#3752E0] font-medium transition-colors">
-                FEAM Process
-              </a>
-              <a href="#services" className="text-gray-700 hover:text-[#3752E0] font-medium transition-colors">
-                Services
-              </a>
-              <a href="#team-action" className="text-gray-700 hover:text-[#3752E0] font-medium transition-colors">
-                Our Team
-              </a>
-              <button 
-                onClick={() => setShowContactModal(true)}
-                className="px-6 py-2 bg-gradient-to-r from-[#3752E0] to-[#887CE7] text-white rounded-lg hover:shadow-lg transition-all font-medium"
-              >
-                Start Your Assessment
-              </button>
-            </nav>
-            
-            <button className="md:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </button>
-          </div>
-        </div>
-      </header>
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white border-b border-gray-200"
-          >
-            <div className="px-6 py-4 space-y-4">
-              <a href="#feam-process" className="block text-gray-700 hover:text-[#3752E0] font-medium">
-                FEAM Process
-              </a>
-              <a href="#services" className="block text-gray-700 hover:text-[#3752E0] font-medium">
-                Services
-              </a>
-              <a href="#team-action" className="block text-gray-700 hover:text-[#3752E0] font-medium">
-                Our Team
-              </a>
-              <button 
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  setShowContactModal(true);
-                }}
-                className="w-full px-6 py-2 bg-gradient-to-r from-[#3752E0] to-[#887CE7] text-white rounded-lg font-medium"
-              >
-                Start Your Assessment
-              </button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+{/* Navigation */}
+<header className={`sticky top-0 z-50 transition-all duration-300 ${
+  scrolled 
+    ? 'bg-white/95 backdrop-blur-lg shadow-lg' 
+    : 'bg-white/80 backdrop-blur-md'
+} border-b border-gray-200`}>
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 md:py-4">
+    <div className="flex items-center justify-between">
+      <a href="/" className="block flex-shrink-0">
+        <img 
+          src="/Quartz-Logo-Design-10.png"
+          alt="Quartz Consulting Group"
+          className="h-6 sm:h-7 md:h-8 w-auto"
+        />
+      </a>
+      
+      {/* Desktop Navigation */}
+      <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8">
+        <a href="#feam-process" className="text-sm lg:text-base text-gray-700 hover:text-[#3752E0] font-medium transition-colors whitespace-nowrap">
+          FEAM Process
+        </a>
+        <a href="#services" className="text-sm lg:text-base text-gray-700 hover:text-[#3752E0] font-medium transition-colors">
+          Services
+        </a>
+        <a href="#team-action" className="text-sm lg:text-base text-gray-700 hover:text-[#3752E0] font-medium transition-colors whitespace-nowrap">
+          Our Team
+        </a>
+        <button 
+          onClick={() => setShowContactModal(true)}
+          className="px-4 lg:px-6 py-2 bg-gradient-to-r from-[#3752E0] to-[#887CE7] text-white rounded-lg hover:shadow-lg transition-all font-medium text-sm lg:text-base whitespace-nowrap"
+        >
+          Start Your Assessment
+        </button>
+      </nav>
+      
+      {/* Mobile Menu Button */}
+      <button 
+        className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        aria-label="Toggle menu"
+      >
+        {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+      </button>
+    </div>
+  </div>
+</header>
+
+{/* Mobile Menu - Improved */}
+<AnimatePresence>
+  {mobileMenuOpen && (
+    <motion.div
+      initial={{ opacity: 0, height: 0 }}
+      animate={{ opacity: 1, height: 'auto' }}
+      exit={{ opacity: 0, height: 0 }}
+      className="lg:hidden bg-white border-b border-gray-200 shadow-lg"
+    >
+      <div className="px-4 py-4 space-y-3">
+        <a 
+          href="#feam-process" 
+          onClick={() => setMobileMenuOpen(false)}
+          className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[#3752E0] rounded-lg font-medium transition-colors"
+        >
+          FEAM Process
+        </a>
+        <a 
+          href="#services" 
+          onClick={() => setMobileMenuOpen(false)}
+          className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[#3752E0] rounded-lg font-medium transition-colors"
+        >
+          Services
+        </a>
+        <a 
+          href="#team-action" 
+          onClick={() => setMobileMenuOpen(false)}
+          className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[#3752E0] rounded-lg font-medium transition-colors"
+        >
+          Our Team
+        </a>
+        <button 
+          onClick={() => {
+            setMobileMenuOpen(false);
+            setShowContactModal(true);
+          }}
+          className="w-full px-4 py-3 bg-gradient-to-r from-[#3752E0] to-[#887CE7] text-white rounded-lg font-medium transition-all hover:shadow-lg"
+        >
+          Start Your Assessment
+        </button>
+      </div>
+    </motion.div>
+  )}
+</AnimatePresence>
 
       {/* Hero Section - Using the new HeroSection component */}
       <HeroSection />
@@ -359,59 +378,61 @@ export default function QuartzSolutions() {
       </section>
 
       {/* Team in Action Section */}
-      <section id="team-action" className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4 text-gray-900">
-              Our Team
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3752E0] to-[#887CE7]">
-                {' '}in Action
-              </span>
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              From mechanical rooms to rooftops, our certified technicians capture 
-              every critical asset in your facility.
-            </p>
-          </div>
+<section id="team-action" className="py-12 md:py-20 bg-white">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6">
+    <div className="text-center mb-8 md:mb-12">
+      <h2 className="text-3xl md:text-4xl font-bold mb-3 md:mb-4 text-gray-900">
+        Our Team
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3752E0] to-[#887CE7]">
+          {' '}in Action
+        </span>
+      </h2>
+      <p className="text-base md:text-xl text-gray-600 max-w-3xl mx-auto px-4">
+        From mechanical rooms to rooftops, our certified technicians capture 
+        every critical asset in your facility.
+      </p>
+    </div>
 
-          <div className="grid md:grid-cols-4 gap-6">
-            {teamPhotos.map((photo, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.05 }}
-                className="group relative overflow-hidden rounded-lg shadow-lg"
-              >
-                <div className="aspect-square relative bg-gray-100">
-                  <Image
-                    src={photo.src}
-                    alt={photo.caption}
-                    fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-110"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="absolute bottom-0 left-0 right-0 p-4">
-                      <p className="text-white text-sm font-medium">{photo.caption}</p>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6">
+      {teamPhotos.map((photo, idx) => (
+        <motion.div
+          key={idx}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: idx * 0.05 }}
+          className="group relative overflow-hidden rounded-lg shadow-lg"
+        >
+          <div className="aspect-square relative bg-gray-100">
+            <Image
+              src={photo.src}
+              alt={photo.caption}
+              fill
+              className="object-cover transition-transform duration-300 group-hover:scale-110"
+              sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 25vw"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="absolute bottom-0 left-0 right-0 p-2 md:p-4">
+                <p className="text-white text-xs md:text-sm font-medium">{photo.caption}</p>
+              </div>
+            </div>
           </div>
+        </motion.div>
+      ))}
+    </div>
 
-          <div className="mt-12 bg-gradient-to-r from-[#3752E0] to-[#887CE7] rounded-2xl p-8 text-white text-center">
-            <Shield className="h-12 w-12 text-white/80 mx-auto mb-4" />
-            <h3 className="text-2xl font-bold mb-3">Enterprise-Scale Experience</h3>
-            <p className="text-lg text-white/90 max-w-3xl mx-auto">
-              Our team brings decades of combined experience in facilities management, 
-              engineering, and technology integration to every project.
-            </p>
-          </div>
-        </div>
-      </section>
+    {/* Enterprise Shield Section - with mobile optimization */}
+    <div className="mt-8 md:mt-12 bg-gradient-to-r from-[#3752E0] to-[#887CE7] rounded-xl md:rounded-2xl p-6 md:p-8 text-white text-center">
+      <Shield className="h-10 w-10 md:h-12 md:w-12 text-white/80 mx-auto mb-3 md:mb-4" />
+      <h3 className="text-xl md:text-2xl font-bold mb-2 md:mb-3">Enterprise-Scale Experience</h3>
+      <p className="text-base md:text-lg text-white/90 max-w-3xl mx-auto">
+        Our team brings decades of combined experience in facilities management, 
+        engineering, and technology integration to every project.
+      </p>
+    </div>
+  </div>
+</section>
 
       {/* Services Section - Updated */}
       <section id="services" className="py-20 bg-gray-50">

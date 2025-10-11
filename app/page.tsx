@@ -419,35 +419,35 @@ export default function QuartzSolutions() {
     </div>
 
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6">
-     {teamPhotos.map((photo, idx) => {
-  const [imageLoaded, setImageLoaded] = useState(false);
-  
-  return (
-    <motion.div key={idx} ...>
-      <div className="aspect-square relative bg-gray-100">
-        {/* Loading skeleton */}
-        {!imageLoaded && (
-          <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-gray-200 to-gray-300" />
-        )}
-        
-        <Image
-          src={photo.src}
-          alt={photo.caption}
-          fill
-          className={`object-cover transition-transform duration-300 group-hover:scale-110 ${
-            imageLoaded ? 'opacity-100' : 'opacity-0'
-          }`}
-          sizes="..."
-          loading="lazy"
-          onLoad={() => setImageLoaded(true)}
-        />
-        ...
-      </div>
-    </motion.div>
-  );
-})}
+      {teamPhotos.map((photo, idx) => (
+        <motion.div
+          key={idx}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: idx * 0.05 }}
+          className="group relative overflow-hidden rounded-lg shadow-lg"
+        >
+          <div className="aspect-square relative bg-gray-100">
+            <Image
+              src={photo.src}
+              alt={photo.caption}
+              fill
+              className="object-cover transition-transform duration-300 group-hover:scale-110"
+              sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 25vw"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="absolute bottom-0 left-0 right-0 p-2 md:p-4">
+                <p className="text-white text-xs md:text-sm font-medium">{photo.caption}</p>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      ))}
+    </div>
 
-    {/* Enterprise Shield Section - with mobile optimization */}
+    {/* Enterprise Shield Section */}
     <div className="mt-8 md:mt-12 bg-gradient-to-r from-[#3752E0] to-[#887CE7] rounded-xl md:rounded-2xl p-6 md:p-8 text-white text-center">
       <Shield className="h-10 w-10 md:h-12 md:w-12 text-white/80 mx-auto mb-3 md:mb-4" />
       <h3 className="text-xl md:text-2xl font-bold mb-2 md:mb-3">Enterprise-Scale Experience</h3>

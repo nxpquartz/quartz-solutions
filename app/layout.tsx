@@ -1,25 +1,13 @@
+// app/layout.tsx
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import GoogleAnalytics from './components/GoogleAnalytics';
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function RootLayout({ children }) {
-  return (
-    <html lang="en">
-      <head>...</head>
-      <body>
-        {children}
-        <GoogleAnalytics />
-      </body>
-    </html>
-  );
-}
-
 export const metadata: Metadata = {
-  title: 'Quartz Consulting Group - FEAM Services',
-  description: 'Facilities Equipment Asset Management (FEAM) services for enterprise facility portfolios. Transform your facilities with field-verified asset intelligence.',
+  title: 'Quartz Consulting Group - FEAM Services | Enterprise Facilities Management',
+  description: 'Transform aging infrastructure into intelligent assets with our FEAM methodology. Field-verified asset intelligence for educational institutions. 770+ buildings assessed.',
   keywords: 'FEAM, facilities management, asset management, asset verification, construction handover, QR code tagging, CMMS integration',
   authors: [{ name: 'Quartz Consulting Group' }],
   creator: 'Quartz Consulting Group',
@@ -37,7 +25,7 @@ export const metadata: Metadata = {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Quartz Consulting Group',
+        alt: 'Quartz FEAM Services',
       },
     ],
   },
@@ -58,11 +46,6 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  verification: {
-    // Add these when you have them:
-    // google: 'your-google-verification-code',
-    // yandex: 'your-yandex-verification-code',
-  },
 }
 
 export default function RootLayout({
@@ -72,6 +55,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+      </head>
       <body className={inter.className}>{children}</body>
     </html>
   )

@@ -3,7 +3,7 @@
 import Script from 'next/script';
 
 export default function GoogleAnalytics() {
-  const GA_ID = 'G-XXXXXXXXXX'; // Replace with your GA4 ID
+  const GA_ID = 'G-J7SH7PDTHG';
   
   return (
     <>
@@ -16,7 +16,9 @@ export default function GoogleAnalytics() {
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', '${GA_ID}');
+          gtag('config', '${GA_ID}', {
+            page_path: window.location.pathname,
+          });
         `}
       </Script>
     </>

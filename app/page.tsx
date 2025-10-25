@@ -126,36 +126,51 @@ export default function QuartzSolutions() {
   }
 };
 
-  // FEAM Process Steps with enhanced colors
+  // UPDATED: FEAM Process Steps with location, duration, and dependencies
   const feamSteps = [
     { 
       phase: 'Planning', 
       icon: ClipboardCheck,
       description: 'Strategic assessment and roadmap development',
+      location: '💻 Remote',
+      duration: '~2 weeks',
+      dependencies: 'Stakeholder kickoff, existing documentation review',
       color: 'from-blue-500 to-blue-600'
     },
     { 
       phase: 'Asset Verification', 
       icon: Camera,
-      description: 'Comprehensive site survey and documentation',
+      description: 'Comprehensive on-site equipment documentation',
+      location: '📍 On-Site (Campus Field Work)',
+      duration: '2-3 weeks per campus',
+      dependencies: 'Facilities escort, building access coordination',
       color: 'from-purple-500 to-purple-600'
     },
     { 
       phase: 'Data Reconciliation', 
       icon: Database,
-      description: 'Asset record validation and register development',
+      description: 'Asset record validation against drawings and submittals',
+      location: '💻 Remote',
+      duration: '2 weeks per campus',
+      dependencies: 'As-built drawings, contractor submittals',
       color: 'from-indigo-500 to-indigo-600'
     },
     { 
       phase: 'Physical Tagging', 
       icon: QrCode,
-      description: 'On-site asset tagging with QR code labels',
+      description: 'QR code asset label production and installation',
+      location: '📍 On-Site (Campus Field Work)',
+      duration: '2 weeks per campus',
+      dependencies: 'CMMS Asset IDs, QR URL structure, label approval',
       color: 'from-violet-500 to-violet-600'
     },
     { 
       phase: 'Digital Integration', 
       icon: GitBranch,
-      description: 'System integration and document linking',
+      description: 'CMMS data migration and document hyperlinking',
+      location: '💻 Remote',
+      duration: '2 weeks per campus',
+      dependencies: 'CMMS credentials, IT team coordination',
       color: 'from-purple-600 to-pink-600'
     }
   ];
@@ -905,6 +920,70 @@ export default function QuartzSolutions() {
           </motion.div>
         </div>
       </section>
+
+      {/* Proven Track Record Section */}
+      <section className="py-20 bg-gradient-to-br from-gray-50 to-gray-100">
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              Proven Track Record
+            </h2>
+            <p className="text-xl text-gray-600">
+              Field-verified results across California's largest educational portfolios
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-4 gap-8">
+            {[
+              { 
+                value: '3-6 Months', 
+                label: 'Turnkey Implementation',
+                description: 'From planning to live CMMS integration'
+              },
+              { 
+                value: '770+', 
+                label: 'Buildings Documented',
+                description: 'California\'s largest community college district'
+              },
+              { 
+                value: '100%', 
+                label: 'Verified Asset Coverage',
+                description: 'Field-verified with QR code tagging'
+              },
+              { 
+                value: '15+ Years', 
+                label: 'Facilities Expertise',
+                description: 'Southern California-based team'
+              }
+            ].map((stat, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow"
+              >
+                <div className="text-4xl font-bold text-[#3752E0] mb-2">
+                  {stat.value}
+                </div>
+                <div className="text-lg font-semibold text-gray-900 mb-2">
+                  {stat.label}
+                </div>
+                <div className="text-sm text-gray-600">
+                  {stat.description}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
 
       {/* Footer - Updated */}
       <footer className="py-16 bg-white border-t border-gray-200">

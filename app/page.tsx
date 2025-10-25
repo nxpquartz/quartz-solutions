@@ -126,15 +126,15 @@ export default function QuartzSolutions() {
   }
 };
 
-  // UPDATED: FEAM Process Steps with location, duration, and dependencies
+  // UPDATED: FEAM Process Steps with variable-based framework (no specific timelines)
   const feamSteps = [
     { 
       phase: 'Planning', 
       icon: ClipboardCheck,
       description: 'Strategic assessment and roadmap development',
       location: '💻 Remote',
-      duration: '~2 weeks',
-      dependencies: 'Stakeholder kickoff, existing documentation review',
+      effort: 'Varies by portfolio size and documentation state',
+      dependencies: 'Stakeholder kickoff, existing records review, IT systems assessment',
       color: 'from-blue-500 to-blue-600'
     },
     { 
@@ -142,8 +142,8 @@ export default function QuartzSolutions() {
       icon: Camera,
       description: 'Comprehensive on-site equipment documentation',
       location: '📍 On-Site (Campus Field Work)',
-      duration: '2-3 weeks per campus',
-      dependencies: 'Facilities escort, building access coordination',
+      effort: 'Scales with building count, asset complexity, and access logistics',
+      dependencies: 'Building access coordination, facilities escort, weather conditions, campus schedules',
       color: 'from-purple-500 to-purple-600'
     },
     { 
@@ -151,8 +151,8 @@ export default function QuartzSolutions() {
       icon: Database,
       description: 'Asset record validation against drawings and submittals',
       location: '💻 Remote',
-      duration: '2 weeks per campus',
-      dependencies: 'As-built drawings, contractor submittals',
+      effort: 'Dependent on as-built documentation quality and completeness',
+      dependencies: 'As-built drawings, contractor submittals, existing asset records',
       color: 'from-indigo-500 to-indigo-600'
     },
     { 
@@ -160,8 +160,8 @@ export default function QuartzSolutions() {
       icon: QrCode,
       description: 'QR code asset label production and installation',
       location: '📍 On-Site (Campus Field Work)',
-      duration: '2 weeks per campus',
-      dependencies: 'CMMS Asset IDs, QR URL structure, label approval',
+      effort: 'Determined by asset quantity and site accessibility',
+      dependencies: 'CMMS asset ID assignment, QR URL structure approval, label design signoff, building access',
       color: 'from-violet-500 to-violet-600'
     },
     { 
@@ -169,8 +169,8 @@ export default function QuartzSolutions() {
       icon: GitBranch,
       description: 'CMMS data migration and document hyperlinking',
       location: '💻 Remote',
-      duration: '2 weeks per campus',
-      dependencies: 'CMMS credentials, IT team coordination',
+      effort: 'Variable based on CMMS platform and data migration complexity',
+      dependencies: 'CMMS credentials and access, IT team coordination, data mapping approval',
       color: 'from-purple-600 to-pink-600'
     }
   ];
@@ -301,126 +301,224 @@ export default function QuartzSolutions() {
       {/* Hero Section - Using the new HeroSection component */}
       <HeroSection />
 
-      {/* FEAM Process Section - Enhanced with more color */}
-      <section id="feam-process" className="py-20 bg-gradient-to-b from-gray-50 to-white">
+      {/* FEAM Process Section - Process Diagram Visualization */}
+      <section id="feam-process" className="py-20 bg-gradient-to-b from-blue-100/40 via-purple-50/40 to-blue-100/40">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-4xl font-bold mb-4 text-gray-900">
-                The FEAM Process Model
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3752E0] to-[#887CE7]">
-                  {' '}That Delivers Results
-                </span>
-              </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Our proven five-phase methodology transforms facility data into strategic intelligence, 
-                whether for existing portfolios or new construction handovers.
-              </p>
-            </motion.div>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              Our FEAM Process
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              From chaos to clarity in five phases
+            </p>
+          </motion.div>
 
-          <div className="relative">
-            {/* Timeline line with gradient */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-[#3752E0] via-[#887CE7] to-[#9597FB] hidden md:block"></div>
-            
-            <div className="space-y-8">
-              {feamSteps.map((step, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, x: idx % 2 === 0 ? -50 : 50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.1 }}
-                  className={`flex flex-col md:flex-row items-center gap-6 ${
-                    idx % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-                  }`}
-                >
-                  <div className="flex-1">
-                    <div className={`bg-white rounded-xl p-6 shadow-xl border-2 border-opacity-50 ${
-                      idx % 2 === 0 ? 'md:text-right border-purple-300' : 'md:text-left border-blue-300'
+          {/* Process Diagram */}
+          <div className="max-w-6xl mx-auto">
+            {/* Desktop: Zigzag Flow */}
+            <div className="hidden md:block relative">
+              {feamSteps.map((step, idx) => {
+                const IconComponent = step.icon;
+                const isOnSite = step.location.includes('On-Site');
+                const isEven = idx % 2 === 0;
+                
+                return (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, x: isEven ? -50 : 50, y: 20 }}
+                    whileInView={{ opacity: 1, x: 0, y: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ 
+                      delay: idx * 0.2,
+                      duration: 0.6,
+                      ease: [0.25, 0.1, 0.25, 1.0]
+                    }}
+                    className="relative mb-8"
+                  >
+                    {/* Connecting Line - Animates in */}
+                    {idx < feamSteps.length - 1 && (
+                      <motion.div 
+                        initial={{ opacity: 0, scale: 0 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ 
+                          delay: idx * 0.2 + 0.4,
+                          duration: 0.5,
+                          ease: "easeOut"
+                        }}
+                        className={`absolute top-20 ${isEven ? 'right-0' : 'left-0'} w-1/2 h-16`}
+                      >
+                        <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                          <motion.path
+                            d={isEven ? "M 0 0 L 100 100" : "M 100 0 L 0 100"}
+                            stroke="#3752E0"
+                            strokeWidth="2"
+                            fill="none"
+                            strokeDasharray="5,5"
+                            opacity="0.5"
+                            initial={{ pathLength: 0 }}
+                            whileInView={{ pathLength: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ 
+                              delay: idx * 0.2 + 0.4,
+                              duration: 0.6,
+                              ease: "easeInOut"
+                            }}
+                          />
+                        </svg>
+                      </motion.div>
+                    )}
+
+                    <div className={`flex items-center gap-6 ${isEven ? 'flex-row' : 'flex-row-reverse'}`}>
+                      {/* Phase Content */}
+                      <div className="flex-1">
+                        <motion.div 
+                          className={`bg-white rounded-2xl p-6 shadow-xl border-2 hover:shadow-2xl transition-all group ${
+                            isOnSite ? 'border-orange-200 hover:border-orange-300' : 'border-blue-200 hover:border-blue-300'
+                          }`}
+                          whileHover={{ 
+                            scale: 1.02,
+                            transition: { duration: 0.2 }
+                          }}
+                        >
+                          <div className="flex items-start gap-4">
+                            <motion.div 
+                              className={`w-16 h-16 rounded-xl bg-gradient-to-br ${step.color} flex items-center justify-center flex-shrink-0 shadow-lg`}
+                              initial={{ rotate: -180, scale: 0 }}
+                              whileInView={{ rotate: 0, scale: 1 }}
+                              viewport={{ once: true }}
+                              transition={{ 
+                                delay: idx * 0.2 + 0.2,
+                                duration: 0.5,
+                                type: "spring",
+                                stiffness: 200
+                              }}
+                            >
+                              <IconComponent className="h-8 w-8 text-white" />
+                            </motion.div>
+                            <div className="flex-1">
+                              <div className="flex items-center gap-2 mb-2">
+                                <motion.span 
+                                  className="w-6 h-6 rounded-full bg-[#3752E0] text-white text-xs font-bold flex items-center justify-center"
+                                  initial={{ scale: 0 }}
+                                  whileInView={{ scale: 1 }}
+                                  viewport={{ once: true }}
+                                  transition={{ 
+                                    delay: idx * 0.2 + 0.3,
+                                    duration: 0.3,
+                                    type: "spring",
+                                    stiffness: 300
+                                  }}
+                                >
+                                  {idx + 1}
+                                </motion.span>
+                                <h3 className="text-xl font-bold text-gray-900">{step.phase}</h3>
+                                <span className={`ml-auto text-xs font-semibold px-2 py-1 rounded-full ${
+                                  isOnSite ? 'bg-orange-100 text-orange-700' : 'bg-blue-100 text-blue-700'
+                                }`}>
+                                  {isOnSite ? 'On-Site' : 'Remote'}
+                                </span>
+                              </div>
+                              <p className="text-sm text-gray-600 mb-2">{step.description}</p>
+                              {/* Hover to reveal effort */}
+                              <div className="max-h-0 overflow-hidden group-hover:max-h-20 transition-all duration-300 ease-in-out">
+                                <p className="text-xs text-gray-500 pt-2 border-t border-gray-200">{step.effort}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </motion.div>
+                      </div>
+
+                      {/* Spacer for alignment */}
+                      <div className="flex-1"></div>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            {/* Mobile: Vertical Flow */}
+            <div className="md:hidden space-y-4">
+              {feamSteps.map((step, idx) => {
+                const IconComponent = step.icon;
+                const isOnSite = step.location.includes('On-Site');
+                
+                return (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: idx * 0.1 }}
+                    className="relative"
+                  >
+                    <div className={`bg-white rounded-xl p-4 shadow-lg border-2 ${
+                      isOnSite ? 'border-orange-200' : 'border-blue-200'
                     }`}>
-                      <h3 className="text-xl font-bold text-gray-900 mb-2">
-                        Phase {idx + 1}: {step.phase}
-                      </h3>
-                      <p className="text-gray-600">{step.description}</p>
+                      <div className="flex items-start gap-3">
+                        <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${step.color} flex items-center justify-center flex-shrink-0`}>
+                          <IconComponent className="h-6 w-6 text-white" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className="w-5 h-5 rounded-full bg-[#3752E0] text-white text-xs font-bold flex items-center justify-center">
+                              {idx + 1}
+                            </span>
+                            <h3 className="text-base font-bold text-gray-900">{step.phase}</h3>
+                          </div>
+                          <span className={`inline-block text-xs font-semibold px-2 py-0.5 rounded-full mb-2 ${
+                            isOnSite ? 'bg-orange-100 text-orange-700' : 'bg-blue-100 text-blue-700'
+                          }`}>
+                            {isOnSite ? 'On-Site' : 'Remote'}
+                          </span>
+                          <p className="text-xs text-gray-600">{step.description}</p>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  
-                  <div className="relative z-10">
-                    <div className={`w-20 h-20 bg-gradient-to-br ${step.color} rounded-full flex items-center justify-center shadow-xl transform hover:scale-110 transition-transform`}>
-                      <step.icon className="h-10 w-10 text-white" />
-                    </div>
-                  </div>
-                  
-                  <div className="flex-1 hidden md:block"></div>
-                </motion.div>
-              ))}
+                    {idx < feamSteps.length - 1 && (
+                      <div className="flex justify-center py-2">
+                        <div className="w-0.5 h-4 bg-[#3752E0] opacity-40"></div>
+                      </div>
+                    )}
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
 
-          {/* FEAM Value Props with enhanced visuals */}
-          <div className="mt-20 grid md:grid-cols-2 gap-8">
-            <div className="bg-gradient-to-br from-blue-50 via-white to-blue-50 rounded-2xl p-8 border-2 border-blue-200 shadow-xl hover:shadow-2xl transition-shadow">
-              <div className="bg-gradient-to-r from-blue-500 to-blue-600 w-16 h-16 rounded-xl flex items-center justify-center mb-4">
-                <Building className="h-8 w-8 text-white" />
+          {/* Timeline Context */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-16 max-w-4xl mx-auto"
+          >
+            <div className="bg-gradient-to-br from-white via-gray-50 to-white rounded-2xl p-8 border-2 border-purple-200/50 shadow-2xl">
+              <div className="text-center">
+                <h4 className="text-2xl font-bold text-gray-900 mb-3">Your Timeline</h4>
+                <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
+                  Project duration depends on portfolio size, asset complexity, and CMMS readiness. 
+                  We'll scope your timeline during the initial planning phase.
+                </p>
+                <div className="inline-flex items-center gap-3 bg-blue-50 px-6 py-4 rounded-xl border border-blue-200">
+                  <Award className="h-6 w-6 text-[#3752E0] flex-shrink-0" />
+                  <p className="text-sm text-gray-900">
+                    <strong className="text-[#3752E0]">Recent example:</strong> 9-campus district (770+ buildings) in 9 months
+                  </p>
+                </div>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">
-                For Existing Portfolios
-              </h3>
-              <p className="text-gray-600 mb-4">
-                Level-set your entire portfolio with verified asset intelligence. Perfect for:
-              </p>
-              <ul className="space-y-2">
-                <li className="flex items-start">
-                  <CheckCircle className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-700">Aging infrastructure requiring strategic renewal</span>
-                </li>
-                <li className="flex items-start">
-                  <CheckCircle className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-700">Budget constraints demanding data-driven decisions</span>
-                </li>
-                <li className="flex items-start">
-                  <CheckCircle className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-700">Compliance requirements across multiple facilities</span>
-                </li>
-              </ul>
             </div>
-
-            <div className="bg-gradient-to-br from-purple-50 via-white to-purple-50 rounded-2xl p-8 border-2 border-purple-200 shadow-xl hover:shadow-2xl transition-shadow">
-              <div className="bg-gradient-to-r from-purple-500 to-purple-600 w-16 h-16 rounded-xl flex items-center justify-center mb-4">
-                <HardHat className="h-8 w-8 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">
-                For New Construction
-              </h3>
-              <p className="text-gray-600 mb-4">
-                Capture critical asset data during the 60-day handover window:
-              </p>
-              <ul className="space-y-2">
-                <li className="flex items-start">
-                  <CheckCircle className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-700">Initial verification at 75% MEP completion</span>
-                </li>
-                <li className="flex items-start">
-                  <CheckCircle className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-700">Full documentation at 100% MEP completion</span>
-                </li>
-                <li className="flex items-start">
-                  <CheckCircle className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-700">Final tagging before owner acceptance</span>
-                </li>
-              </ul>
-            </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Team in Action Section */}
-<section id="team-action" className="py-12 md:py-20 bg-white">
+<section id="team-action" className="py-12 md:py-20 bg-gradient-to-b from-gray-50 to-white">
   <div className="max-w-7xl mx-auto px-4 sm:px-6">
     <div className="text-center mb-8 md:mb-12">
       <h2 className="text-3xl md:text-4xl font-bold mb-3 md:mb-4 text-gray-900">
@@ -585,7 +683,7 @@ export default function QuartzSolutions() {
                           <Clock className="h-5 w-5 text-[#887CE7] mr-2" />
                           Timeline
                         </h4>
-                        <p className="text-gray-700">3-6 months depending on portfolio size</p>
+                        <p className="text-gray-700">Timeline varies by portfolio complexity</p>
                       </div>
                       
                       <div>
